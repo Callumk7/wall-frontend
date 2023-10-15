@@ -1,51 +1,72 @@
-import { Link, Outlet } from "@remix-run/react";
-import {
-  Button,
-  Item,
-  Label,
-  ListBox,
-  Popover,
-  Select,
-  SelectValue,
-} from "react-aria-components";
-import { useState } from "react";
+import { ActionFunctionArgs } from "@remix-run/node";
+import { FeedView } from "~/features/feed/feed-view";
+import { CreatePost } from "~/features/posts/create-post";
+
+export const action = async ({request}: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  console.log(formData.get("body"))
+  console.log(formData.get("hidden"))
+
+  return null;
+}
 
 export default function FeedPage() {
-  const [count, setCount] = useState<number>(0);
+  const posts = [
+    {
+      id: "1",
+      user: "Alice",
+      body: "Hello, World!",
+      date: new Date("2023-10-10"),
+      comments: [
+        {
+          id: "2",
+          user: "Bob",
+          body: "Hi, Alice!",
+          date: new Date("2023-10-11"),
+          comments: [],
+        },
+        {
+          id: "3",
+          user: "Charlie",
+          body: "Good morning, Alice!",
+          date: new Date("2023-10-11"),
+          comments: [
+            {
+              id: "4",
+              user: "Alice",
+              body: "Good morning, Charlie!",
+              date: new Date("2023-10-12"),
+              comments: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "5",
+      user: "Charlie",
+      body: "It's a nice day.",
+      date: new Date("2023-10-11"),
+      comments: [
+        {
+          id: "6",
+          user: "Bob",
+          body: "Indeed, it is!",
+          date: new Date("2023-10-12"),
+          comments: [],
+        },
+      ],
+    },
+  ];
+
   return (
-    <div className="mx-auto flex w-4/5 flex-col gap-5 p-10">
-      <h1 className="text-primary">This is the feed page</h1>
-      <Links />
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}>add one</button>
-      <Outlet />
-      <Select>
-        <Label>Favorite Animal</Label>
-        <Button>
-          <SelectValue />
-          <span aria-hidden="true">▼</span>
-        </Button>
-        <Popover>
-          <ListBox>
-            <Item>Cat</Item>
-            <Item>Dog</Item>
-            <Item>Kangaroo</Item>
-          </ListBox>
-        </Popover>
-      </Select>
+    <div className="m-2 grid grid-cols-9 gap-2">
+      <div className="col-span-2 bg-red-400">Groups</div>
+      <div className="col-span-6 bg-blue-400">
+        <CreatePost />
+        <FeedView posts={posts} />
+      </div>
+      <div className="bg-orange-400">div</div>
     </div>
   );
 }
-
-const Links = () => {
-  return (
-    <nav className="flex flex-row gap-2">
-      <Link to={"/feed"} className="rounded-sm bg-red-500 p-2">
-        FEED
-      </Link>
-      <Link to={"/feed/post"} className="rounded-sm bg-blue-500 p-2">
-        FEED.POST
-      </Link>
-    </nav>
-  );
-};

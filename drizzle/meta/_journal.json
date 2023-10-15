@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1697375221153,
+      "tag": "0000_groovy_the_santerians",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1697376785731,
+      "tag": "0001_powerful_blackheart",
+      "breakpoints": true
+    }
+  ]
+}

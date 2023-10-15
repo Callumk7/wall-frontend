@@ -4,4 +4,6 @@
 
 :root {
 	--primary: hsl(16, 100%, 50%);
+    --background: hsl(20, 30.0%, 96.1%);
+    --foreground: hsl(17, 79.5%, 7.6%);
 }
