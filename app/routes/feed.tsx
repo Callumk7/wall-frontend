@@ -1,72 +1,51 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import clsx from "clsx";
+import { db } from "db";
+import { posts } from "db/schema/posts";
+import { useState } from "react";
 import { FeedView } from "~/features/feed/feed-view";
 import { CreatePost } from "~/features/posts/create-post";
 
-export const action = async ({request}: ActionFunctionArgs) => {
-  const formData = await request.formData();
-  console.log(formData.get("body"))
-  console.log(formData.get("hidden"))
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  //
+  const allPosts = await db.select().from(posts);
 
-  return null;
-}
+  return json({ allPosts });
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const body = formData.get("body")?.toString();
+  
+  const newMessage = await db.insert(posts).values({
+    userId: 1,
+    body 
+  });
+
+  return json({newMessage})
+};
 
 export default function FeedPage() {
-  const posts = [
-    {
-      id: "1",
-      user: "Alice",
-      body: "Hello, World!",
-      date: new Date("2023-10-10"),
-      comments: [
-        {
-          id: "2",
-          user: "Bob",
-          body: "Hi, Alice!",
-          date: new Date("2023-10-11"),
-          comments: [],
-        },
-        {
-          id: "3",
-          user: "Charlie",
-          body: "Good morning, Alice!",
-          date: new Date("2023-10-11"),
-          comments: [
-            {
-              id: "4",
-              user: "Alice",
-              body: "Good morning, Charlie!",
-              date: new Date("2023-10-12"),
-              comments: [],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: "5",
-      user: "Charlie",
-      body: "It's a nice day.",
-      date: new Date("2023-10-11"),
-      comments: [
-        {
-          id: "6",
-          user: "Bob",
-          body: "Indeed, it is!",
-          date: new Date("2023-10-12"),
-          comments: [],
-        },
-      ],
-    },
-  ];
+  const [isPostSelected, setIsPostSelected] = useState<boolean>(false);
+
+  const { allPosts } = useLoaderData<typeof loader>();
 
   return (
-    <div className="m-2 grid grid-cols-9 gap-2">
-      <div className="col-span-2 bg-red-400">Groups</div>
-      <div className="col-span-6 bg-blue-400">
-        <CreatePost />
-        <FeedView posts={posts} />
+    <>
+      <button
+        onClick={() => setIsPostSelected(!isPostSelected)}
+        className="bg-primary p-2 text-background"
+      >
+        select a post
+      </button>
+      <div className={clsx("m-2 grid grid-cols-9 gap-2", isPostSelected ? "hidden" : "")}>
+        <div className="col-span-2 border border-foreground mx-5 shadow-sm shadow-primary rounded-md">Groups</div>
+        <div className="col-span-6">
+          <CreatePost />
+          <FeedView posts={allPosts} />
+        </div>
       </div>
-      <div className="bg-orange-400">div</div>
-    </div>
+    </>
   );
 }
