@@ -6,10 +6,16 @@ export default {
 		extend: {
 			colors: {
 				primary: "var(--primary)",
-				background: "var(--background)",
+				background: {
+					DEFAULT: "var(--background)",
+					input: "var(--input-background)",
+				},
 				foreground: "var(--foreground)",
-			}
+			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		require("tailwindcss-animate"),
+		require("tailwindcss-react-aria-components"),
+	],
 } satisfies Config;

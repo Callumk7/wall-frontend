@@ -4,6 +4,10 @@
 
 :root {
 	--primary: hsl(16, 100%, 50%);
-    --background: hsl(20, 30.0%, 96.1%);
-    --foreground: hsl(17, 79.5%, 7.6%);
+	--background: hsl(20, 30%, 96.1%);
+	--foreground: hsl(17, 79.5%, 7.6%);
+
+	--ring: hsl(195, 100%, 50%);
+
+	--input-background: hsl(20, 30%, 97.5%);
 }

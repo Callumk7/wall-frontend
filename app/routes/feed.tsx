@@ -1,15 +1,13 @@
-import { ActionFunctionArgs, LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import clsx from "clsx";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { db } from "db";
 import { posts } from "db/schema/posts";
 import { desc } from "drizzle-orm";
-import { useState } from "react";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import { Button } from "~/components/ui/button";
 import { FeedView } from "~/features/feed/feed-view";
 import { CreatePost } from "~/features/posts/create-post";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async () => {
   //
   const allPosts = await db.select().from(posts).orderBy(desc(posts.createdAt));
 
@@ -29,21 +27,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function FeedPage() {
-  const [isPostSelected, setIsPostSelected] = useState<boolean>(false);
-
   const { allPosts } = useTypedLoaderData<typeof loader>();
 
   return (
     <>
-      <button
-        onClick={() => setIsPostSelected(!isPostSelected)}
-        className="bg-primary p-2 text-background"
-      >
-        select a post
-      </button>
-      <div className={clsx("m-2 grid grid-cols-9 gap-2", isPostSelected ? "hidden" : "")}>
+      <div className={"m-2 grid grid-cols-9 gap-2"}>
         <div className="col-span-2 mx-5 rounded-md border border-foreground shadow-sm shadow-primary">
-          Groups
+          <Button size={"md"} variant={"primary"}>
+            New Group
+          </Button>
         </div>
         <div className="col-span-6">
           <CreatePost />

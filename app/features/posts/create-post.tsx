@@ -1,16 +1,15 @@
-import { Input, Label, TextField } from "react-aria-components";
+import { Input, Label, TextArea, TextField } from "react-aria-components";
 import { Button } from "~/components/ui/button";
 
 export function CreatePost() {
   return (
-    <form method="POST" id="createPost">
-      <TextField>
-        <Label>Post a Message</Label>
-        <Input />
+    <form method="POST" id="createPost" className="my-4 flex flex-col items-end gap-2">
+      <TextField name="body" className="w-full">
+        <TextArea className="border-foreground/50 w-full resize-none rounded-md border bg-background-input p-3" />
       </TextField>
-      <input type="text" name="body" placeholder="enter your message here" />
-      <input type="hidden" name="hidden" value="This is a hidden field" />
-      <Button type="submit">send</Button>
+      <Button type="submit" size={"md"}>
+        Send
+      </Button>
     </form>
   );
 }
