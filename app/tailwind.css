@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-	--primary: hsl(16, 100%, 50%);
-	--background: hsl(20, 30%, 96.1%);
+	--primary: hsl(16, 100%, 4%);
+	--background: hsl(20, 15%, 97%);
 	--foreground: hsl(17, 79.5%, 7.6%);
 
 	--ring: hsl(195, 100%, 50%);

@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import { json, type LinksFunction } from "@remix-run/node";
 import styles from "./tailwind.css";
 import {
   Links,
@@ -7,8 +7,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import { Navigation } from "./components/navigation";
+import { createClient } from "@supabase/supabase-js";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 

@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs } from "@remix-run/node";
 import { db } from "db";
 import { posts } from "db/schema/posts";
 import { desc } from "drizzle-orm";

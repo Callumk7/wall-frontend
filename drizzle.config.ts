@@ -5,6 +5,7 @@ export default {
 	out: "./drizzle",
 	driver: "pg",
 	dbCredentials: {
-		connectionString: "postgresql://postgres:VHnYMVjW8mnno6nT5Y8K@containers-us-west-133.railway.app:6558/railway",
+		connectionString:
+			"postgresql://postgres:cUQWGBBhcGFf3OZm@db.oobwmbonoswxwgaccvci.supabase.co:5432/postgres",
 	},
 } satisfies Config;

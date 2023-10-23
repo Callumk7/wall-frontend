@@ -1,8 +1,8 @@
 import { MenuTrigger } from "react-aria-components";
 import { Button } from "~/components/ui/button";
-import { Checkbox } from "~/components/ui/checkbox";
 import { Menu, MenuItem, Popover } from "~/components/ui/menu";
 import { Separator } from "~/components/ui/separator";
+import { Input } from "~/components/ui/forms";
 import { ToggleButton } from "~/components/ui/toggle-button";
 
 // This page is for development: showing how components look and their variations
@@ -51,7 +51,14 @@ export default function ComponentPage() {
         <div className="flex flex-col gap-5 rounded-md border border-foreground p-8">
           <h1 className="text-2xl font-bold">Form Stuff</h1>
           <div className="flex gap-3">
-            <Checkbox label="Unsubscribe" />
+            <form className="flex flex-col gap-3 w-96 border border-foreground rounded-md p-6 bg-orange-100 shadow-lg shadow-orange-100/20">
+              <Input label="name" />
+              <Input label="email" />
+              <Input label="phone" />
+              <Button>Submit</Button>
+            </form>
+          </div>
+          <div className="flex gap-3">
           </div>
         </div>
       </div>

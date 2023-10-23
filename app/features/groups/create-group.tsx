@@ -1,4 +1,4 @@
-import { Input } from "~/components/ui/text-area";
+import { Input } from "~/components/ui/forms";
 
 export function CreateGroup() {
   return (
